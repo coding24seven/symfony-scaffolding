@@ -7,15 +7,19 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(Environment $twigEnvironment)
     {
-        return new Response("this is home page");
+//        $html = $twigEnvironment->render('question/homepage.html.twig');
+//        return new Response($html);
+//        return new Response("this is home page");
+        return $this->render('question/homepage.html.twig');
     }
 
     /**
@@ -28,6 +32,8 @@ class QuestionController extends AbstractController
             'honestly, i like furry shoes better than my cat',
             'maybe... try saying the spell backwards'
         ];
+
+        dump($slug, $this);
 
         return $this->render('question/show.html.twig', [
             "question" => sprintf("<u>another future page to show a question '%s'!</u>", $slug),

@@ -7,9 +7,18 @@ services:
       - '8000:8000'
     volumes:
       - '.:/app/myapp'
+      - './php.ini:/opt/bitnami/php/conf/php.ini'
     depends_on:
       - mariadb
   mariadb:
     image: 'docker.io/bitnami/mariadb:10.3-debian-10'
+    ports:
+      - '3306:3306'
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      MARIADB_ROOT_PASSWORD: example
+#      - ALLOW_EMPTY_PASSWORD=no
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
